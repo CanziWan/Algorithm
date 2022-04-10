@@ -1,13 +1,19 @@
-#1 两数之和
+//#1 两数之和
 
-## 解题思路
 
+
+//## 解题思路
+
+/*
 暴力解法：用两层for循环遍历数组，注意一下循环的边界取值问题；
           然后用if语句判断，
           若找到符合题目条件的两个数，则用malloc函数申请内存空间，将符合条件的两个数的数组下标保存到结果数组中，
           若两层循环后找不到题目要求的两个数，则返回NULL。
+*/
 
-## 代码
+
+
+//## 代码
 
 /**
  * Note: The returned array must be malloced, assume caller calls free().
@@ -28,5 +34,3 @@ int* twoSum(int* nums, int numsSize, int target, int* returnSize){
     *returnSize = 0;
     return NULL;
 }
-
-
