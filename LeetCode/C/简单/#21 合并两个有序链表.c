@@ -1,0 +1,68 @@
+//#21 合并两个有序链表
+
+
+
+//## 解题思路
+
+/*
+step1
+用malloc申请一个节点赋值给合并后的新链表newList,将该节点作为newList的头结点。
+（应用头结点的目的是使得用“尾插法”合并链表时的操作保持一致）
+定义一个rear指针，指向newList的表尾。
+
+step2
+当list1和list2都不空时，依次比较list1和list2所指节点的值的大小，将值较小的节点用“尾插法”连接到newList的表尾。
+
+step3
+进行完step2后，list1和list2必有一个为空，将不为空的那个链表直接连接到newList的表尾即可。
+
+step4
+返回时，返回newList的开始节点，不要将头结点返回。（newList链表的数据是从开始节点存的，头节点里没有保存数据）
+*/
+
+
+
+//## 代码
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     struct ListNode *next;
+ * };
+ */
+
+#include <malloc.h>
+struct ListNode* mergeTwoLists(struct ListNode* list1, struct ListNode* list2){  
+
+    //list1,list2不带头节点
+
+    struct ListNode* newList;                          
+    newList = (struct ListNode*)malloc(sizeof(struct ListNode));  //用newList指向合并后新的链表的头节点
+    newList -> next = NULL;
+    struct ListNode* rear = newList;							  //rear为指向新链表的表尾指针
+
+    //用“尾插法”建单链表的方法来实现list1和list2的合并
+    while(list1 != NULL && list2 != NULL){
+        if(list1 -> val <= list2 -> val){
+            rear -> next = list1;
+            list1 = list1 -> next;
+            rear = rear -> next;
+        }else{
+            rear -> next = list2;
+            list2 = list2 -> next;
+            rear = rear -> next;
+        }
+    }
+
+    //以下两条if语句必有一条会被执行
+    if(list1 != NULL){                 //若list1还有未被并入的节点，则直接将其连接到新链表的表尾即可
+        rear -> next = list1;
+    }
+
+    if(list2 != NULL){                 //若list2还有未被并入的节点，则直接将其连接到新链表的表尾即可
+        rear -> next = list2;
+    }
+
+    return newList -> next;            //注意：返回的是合并后新链表的开始节点
+}
